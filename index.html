@@ -1,0 +1,1048 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EACO RWA · Global Ports &amp; Hotel Asset Tokenization</title>
+  <style>
+    :root {
+      --bg: #0a0e1a;
+      --bg2: #0f1629;
+      --card: #111827;
+      --card2: #1a2235;
+      --border: #1e2d4a;
+      --primary: #f59e0b;
+      --primary2: #fbbf24;
+      --accent: #06b6d4;
+      --accent2: #22d3ee;
+      --green: #10b981;
+      --red: #ef4444;
+      --text: #e2e8f0;
+      --text2: #94a3b8;
+      --text3: #64748b;
+      --font: 'Segoe UI', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ── Header ── */
+    header {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      background: rgba(10,14,26,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+      height: 60px;
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo {
+      font-size: 1.3rem; font-weight: 800;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      letter-spacing: 0.05em;
+    }
+    .logo span { font-size: 0.7rem; opacity: 0.6; display: block; letter-spacing: 0.15em; }
+    nav { display: flex; gap: 4px; align-items: center; }
+    nav a {
+      color: var(--text2); text-decoration: none; font-size: 0.85rem;
+      padding: 6px 12px; border-radius: 8px; transition: all 0.2s;
+    }
+    nav a:hover { background: var(--card2); color: var(--text); }
+    nav a.active { color: var(--primary); }
+    .lang-btns { display: flex; gap: 4px; margin-left: 12px; }
+    .lang-btn {
+      font-size: 0.75rem; padding: 4px 10px; border-radius: 6px;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text2); cursor: pointer; transition: all 0.2s;
+    }
+    .lang-btn:hover, .lang-btn.active {
+      border-color: var(--primary); color: var(--primary);
+      background: rgba(245,158,11,0.08);
+    }
+
+    /* ── Hero ── */
+    .hero {
+      min-height: 100vh; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; text-align: center;
+      padding: 80px 24px 60px;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(6,182,212,0.12) 0%, transparent 60%),
+                  radial-gradient(ellipse 60% 40% at 80% 80%, rgba(245,158,11,0.08) 0%, transparent 50%);
+      position: relative;
+    }
+    .hero-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 0.8rem; color: var(--accent); background: rgba(6,182,212,0.1);
+      border: 1px solid rgba(6,182,212,0.25); border-radius: 100px;
+      padding: 6px 16px; margin-bottom: 28px; letter-spacing: 0.08em;
+    }
+    .hero-badge .dot {
+      width: 6px; height: 6px; background: var(--accent);
+      border-radius: 50%; animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
+    .hero h1 {
+      font-size: clamp(2.4rem, 6vw, 4.5rem); font-weight: 900; line-height: 1.1;
+      background: linear-gradient(135deg, #fff 30%, var(--primary) 70%, var(--accent) 100%);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 20px; max-width: 900px;
+    }
+    .hero p {
+      font-size: 1.15rem; color: var(--text2); max-width: 640px;
+      margin-bottom: 40px; line-height: 1.8;
+    }
+    .hero-cta {
+      display: flex; gap: 12px; flex-wrap: wrap; justify-content: center;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), #e67e22);
+      color: #000; font-weight: 700; padding: 14px 32px; border-radius: 12px;
+      text-decoration: none; font-size: 0.95rem; transition: all 0.3s;
+      border: none; cursor: pointer;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(245,158,11,0.3); }
+    .btn-outline {
+      background: transparent; color: var(--text); font-weight: 600;
+      padding: 14px 28px; border-radius: 12px; text-decoration: none;
+      font-size: 0.95rem; border: 1px solid var(--border);
+      transition: all 0.3s; cursor: pointer;
+    }
+    .btn-outline:hover { border-color: var(--accent); color: var(--accent); background: rgba(6,182,212,0.06); }
+
+    /* ── Stats Bar ── */
+    .stats-bar {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      max-width: 960px; margin: -30px auto 0;
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: 16px; overflow: hidden; position: relative; z-index: 2;
+    }
+    .stat-item { padding: 24px 20px; text-align: center; border-right: 1px solid var(--border); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-size: 1.8rem; font-weight: 800; color: var(--primary); }
+    .stat-label { font-size: 0.8rem; color: var(--text3); margin-top: 4px; }
+
+    /* ── Sections ── */
+    .section { max-width: 1200px; margin: 0 auto; padding: 80px 24px; }
+    .section-tag {
+      font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em;
+      color: var(--accent); margin-bottom: 12px; font-weight: 700;
+    }
+    .section h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800;
+      background: linear-gradient(135deg, #fff, var(--text2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+    .section > p { color: var(--text2); max-width: 680px; margin-bottom: 48px; }
+
+    /* ── Port Grid ── */
+    .port-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px;
+    }
+    .port-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 24px; transition: all 0.3s; position: relative; overflow: hidden;
+    }
+    .port-card:hover {
+      border-color: var(--accent); transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(6,182,212,0.1);
+    }
+    .port-card .country-flag {
+      font-size: 2rem; margin-bottom: 12px; display: block;
+    }
+    .port-card .risk-badge {
+      position: absolute; top: 16px; right: 16px;
+      font-size: 0.7rem; padding: 3px 10px; border-radius: 100px;
+      font-weight: 600;
+    }
+    .risk-low { background: rgba(16,185,129,0.12); color: var(--green); }
+    .risk-mid { background: rgba(245,158,11,0.12); color: var(--primary); }
+    .risk-high { background: rgba(239,68,68,0.12); color: var(--red); }
+    .port-card h3 { font-size: 1.1rem; font-weight: 700; color: var(--text); margin-bottom: 6px; }
+    .port-card .port-name { font-size: 0.82rem; color: var(--accent); margin-bottom: 12px; }
+    .port-card p { font-size: 0.85rem; color: var(--text2); margin-bottom: 14px; line-height: 1.6; }
+    .port-card .scenes {
+      display: flex; flex-wrap: wrap; gap: 6px;
+    }
+    .scene-tag {
+      font-size: 0.72rem; padding: 4px 10px; border-radius: 6px;
+      background: var(--card2); color: var(--text3); border: 1px solid var(--border);
+    }
+
+    /* ── Hotel Methods ── */
+    .method-tabs {
+      display: flex; gap: 6px; margin-bottom: 32px; flex-wrap: wrap;
+    }
+    .method-tab {
+      padding: 8px 18px; border-radius: 10px; font-size: 0.82rem;
+      border: 1px solid var(--border); background: transparent;
+      color: var(--text2); cursor: pointer; transition: all 0.2s;
+    }
+    .method-tab:hover { border-color: var(--accent); color: var(--accent); }
+    .method-tab.active { background: rgba(245,158,11,0.1); border-color: var(--primary); color: var(--primary); }
+    .method-detail {
+      background: var(--card); border: 1px solid var(--border); border-radius: 20px;
+      padding: 40px; display: none;
+    }
+    .method-detail.active { display: block; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .method-detail .method-header {
+      display: flex; align-items: flex-start; gap: 20px; margin-bottom: 28px;
+    }
+    .method-detail .method-icon {
+      width: 56px; height: 56px; min-width: 56px; border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem;
+    }
+    .method-detail h3 { font-size: 1.4rem; font-weight: 800; color: var(--text); margin-bottom: 6px; }
+    .method-detail .method-subtitle { font-size: 0.82rem; color: var(--text3); }
+    .method-detail .method-steps {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px; margin-bottom: 28px;
+    }
+    .step-card {
+      background: var(--card2); border-radius: 12px; padding: 18px;
+      border-left: 3px solid var(--accent);
+    }
+    .step-card h4 { font-size: 0.85rem; color: var(--accent); margin-bottom: 6px; }
+    .step-card p { font-size: 0.82rem; color: var(--text2); line-height: 1.6; }
+    .method-highlight {
+      background: linear-gradient(135deg, rgba(245,158,11,0.08), rgba(6,182,212,0.05));
+      border: 1px solid rgba(245,158,11,0.2); border-radius: 12px; padding: 20px 24px;
+    }
+    .method-highlight h4 { color: var(--primary); font-size: 0.9rem; margin-bottom: 10px; }
+    .method-highlight ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .method-highlight li { font-size: 0.85rem; color: var(--text2); padding-left: 20px; position: relative; }
+    .method-highlight li::before { content: '→'; position: absolute; left: 0; color: var(--primary); }
+
+    /* ── Flow Diagram ── */
+    .flow-diagram {
+      display: flex; align-items: center; justify-content: center;
+      flex-wrap: wrap; gap: 0; margin: 48px 0; padding: 40px 0;
+    }
+    .flow-step {
+      display: flex; flex-direction: column; align-items: center; gap: 12px;
+      padding: 20px 24px; min-width: 160px;
+    }
+    .flow-icon {
+      width: 64px; height: 64px; border-radius: 16px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem; margin-bottom: 4px;
+    }
+    .flow-step span { font-size: 0.78rem; color: var(--text3); text-align: center; max-width: 120px; }
+    .flow-step strong { font-size: 0.88rem; color: var(--text); text-align: center; }
+    .flow-arrow {
+      color: var(--text3); font-size: 1.2rem; padding: 0 8px; margin-bottom: 20px;
+    }
+
+    /* ── Token Info ── */
+    .token-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 16px;
+    }
+    .token-card {
+      background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+      padding: 28px;
+    }
+    .token-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 16px; color: var(--text); }
+    .token-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--border); }
+    .token-row:last-child { border-bottom: none; }
+    .token-row .label { font-size: 0.82rem; color: var(--text3); }
+    .token-row .value { font-size: 0.88rem; color: var(--text); font-weight: 600; font-family: 'Courier New', monospace; }
+
+    /* ── Roadmap ── */
+    .roadmap { position: relative; padding-left: 32px; }
+    .roadmap::before {
+      content: ''; position: absolute; left: 8px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .roadmap-item {
+      position: relative; margin-bottom: 40px; padding: 20px 24px;
+      background: var(--card); border: 1px solid var(--border); border-radius: 14px;
+    }
+    .roadmap-item::before {
+      content: ''; position: absolute; left: -28px; top: 28px;
+      width: 14px; height: 14px; border-radius: 50%;
+      background: var(--primary); border: 3px solid var(--bg);
+    }
+    .roadmap-item.phase::before { background: var(--accent); }
+    .roadmap-item h4 { font-size: 1rem; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+    .roadmap-item ul { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .roadmap-item li { font-size: 0.85rem; color: var(--text2); padding-left: 16px; position: relative; }
+    .roadmap-item li::before { content: '·'; position: absolute; left: 0; color: var(--accent); }
+
+    /* ── CTA Section ── */
+    .cta-section {
+      background: linear-gradient(135deg, rgba(245,158,11,0.06), rgba(6,182,212,0.04));
+      border: 1px solid var(--border); border-radius: 24px;
+      padding: 60px 40px; text-align: center; margin: 0 24px 80px; max-width: 1200px; margin-left: auto; margin-right: auto;
+    }
+    .cta-section h2 { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
+    .cta-section p { color: var(--text2); margin-bottom: 32px; max-width: 560px; margin-left: auto; margin-right: auto; }
+    .ca-display {
+      font-family: 'Courier New', monospace; font-size: 0.85rem;
+      background: var(--card2); border: 1px solid var(--border);
+      border-radius: 10px; padding: 16px 24px; margin-bottom: 32px;
+      color: var(--accent); word-break: break-all; text-align: left;
+    }
+
+    /* ── Footer ── */
+    footer {
+      border-top: 1px solid var(--border); padding: 40px 24px;
+      text-align: center; color: var(--text3); font-size: 0.8rem;
+    }
+    footer .disclaimer {
+      max-width: 800px; margin: 0 auto 16px;
+      background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.2);
+      border-radius: 10px; padding: 16px; color: var(--text3);
+    }
+
+    /* ── Scroll to top ── */
+    #scrollTop {
+      position: fixed; bottom: 24px; right: 24px; z-index: 50;
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text2); font-size: 1.2rem;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; transition: all 0.3s; opacity: 0;
+    }
+    #scrollTop.visible { opacity: 1; }
+    #scrollTop:hover { border-color: var(--primary); color: var(--primary); }
+
+    /* ── Mobile ── */
+    @media (max-width: 768px) {
+      nav { display: none; }
+      .stats-bar { grid-template-columns: repeat(2, 1fr); margin: -20px 16px 0; }
+      .port-grid { grid-template-columns: 1fr; }
+      .flow-diagram { flex-direction: column; }
+      .flow-arrow { transform: rotate(90deg); margin: 8px 0; }
+      .section { padding: 60px 16px; }
+      .method-detail { padding: 24px 20px; }
+      .cta-section { padding: 40px 20px; }
+    }
+
+    /* ── Scrollbar ── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--bg); }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--text3); }
+
+    [hidden] { display: none !important; }
+  </style>
+</head>
+<body>
+
+<!-- ── Header ── -->
+<header>
+  <div class="logo">
+    EACO RWA
+    <span>EARTH PORT ECOSYSTEM</span>
+  </div>
+  <nav>
+    <a href="#ports" data-i18n="nav.ports">全球口岸</a>
+    <a href="#hotel" data-i18n="nav.hotel">酒店RWA</a>
+    <a href="#token" data-i18n="nav.token">代币信息</a>
+    <a href="#roadmap" data-i18n="nav.roadmap">路线图</a>
+  </nav>
+  <div class="lang-btns">
+    <button class="lang-btn active" data-lang="zh">中文</button>
+    <button class="lang-btn" data-lang="en">EN</button>
+  </div>
+</header>
+
+<!-- ── Hero ── -->
+<section class="hero">
+  <div class="hero-badge">
+    <span class="dot"></span>
+    <span data-i18n="hero.badge">RWA · 跨境结算 · 全球流通</span>
+  </div>
+  <h1 data-i18n="hero.title">EACO 地球口岸 RWA<br>全球资产数字化流通生态</h1>
+  <p data-i18n="hero.subtitle">以香港持牌机构为合规核心，将商业大楼与经济型酒店公寓的收益权代币化，通过10大邻国陆路口岸辐射全球，让EACO成为跨境商旅与资产投资的结算媒介。</p>
+  <div class="hero-cta">
+    <a href="#hotel" class="btn-primary" data-i18n="hero.cta1">探索酒店RWA方法</a>
+    <a href="#ports" class="btn-outline" data-i18n="hero.cta2">查看全球口岸布局</a>
+  </div>
+</section>
+
+<!-- ── Stats ── -->
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">10</div>
+    <div class="stat-label" data-i18n="stat.countries">覆盖国家</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10</div>
+    <div class="stat-label" data-i18n="stat.ports">核心口岸</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">10</div>
+    <div class="stat-label" data-i18n="stat.methods">RWA方法</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6</div>
+    <div class="stat-label" data-i18n="stat.langs">支持语种</div>
+  </div>
+</div>
+
+<!-- ── Flow ── -->
+<div class="section" style="padding-top: 60px;">
+  <div class="flow-diagram">
+    <div class="flow-step">
+      <div class="flow-icon" style="background:rgba(6,182,212,0.12); color:var(--accent);">🏢</div>
+      <strong data-i18n="flow.step1">香港SPV</strong>
+      <span data-i18n="flow.desc1">收益权装入SPV</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:rgba(245,158,11,0.12); color:var(--primary);">🔗</div>
+      <strong data-i18n="flow.step2">代币化发行</strong>
+      <span data-i18n="flow.desc2">持牌机构铸造RWA</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:rgba(16,185,129,0.12); color:var(--green);">🌍</div>
+      <strong data-i18n="flow.step3">EACO认购</strong>
+      <span data-i18n="flow.desc3">全球持有者用EACO</span>
+    </div>
+    <div class="flow-arrow">→</div>
+    <div class="flow-step">
+      <div class="flow-icon" style="background:rgba(139,92,246,0.12); color:#a78bfa;">💰</div>
+      <strong data-i18n="flow.step4">收益分红</strong>
+      <span data-i18n="flow.desc4">租金+入住+治理权</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── Global Ports ── -->
+<section class="section" id="ports">
+  <div class="section-tag" data-i18n="ports.tag">GLOBAL PORTS STRATEGY</div>
+  <h2 data-i18n="ports.title">10大邻国 × 对华口岸 RWA布局</h2>
+  <p data-i18n="ports.subtitle">基于2025-2026最新Web3监管格局，从14个陆地邻国中精选10个最具实操价值的对华口岸，通过陆路桥头堡辐射全球EACO生态。</p>
+
+  <div class="port-grid" id="portGrid">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ── Hotel RWA ── -->
+<section class="section" id="hotel">
+  <div class="section-tag" data-i18n="hotel.tag">HOTEL RWA ECOSYSTEM</div>
+  <h2 data-i18n="hotel.title">经济型酒店公寓 × EACO 海外RWA发展方法</h2>
+  <p data-i18n="hotel.subtitle">经济型酒店公寓具有标准化程度高、运营成本低、现金流稳定三大核心优势，是EACO RWA的最佳切入点。从资产端、流通端、收益端、合规端四个维度，系统设计10种结合路径。</p>
+
+  <div class="method-tabs" id="methodTabs">
+    <!-- Rendered by JS -->
+  </div>
+
+  <div id="methodDetails">
+    <!-- Rendered by JS -->
+  </div>
+</section>
+
+<!-- ── Token Info ── -->
+<section class="section" id="token">
+  <div class="section-tag" data-i18n="token.tag">TOKEN INFORMATION</div>
+  <h2 data-i18n="token.title">EACO 代币核心参数</h2>
+
+  <div class="token-grid">
+    <div class="token-card">
+      <h3 data-i18n="token.basic">基本信息</h3>
+      <div class="token-row"><span class="label" data-i18n="token.name">代币名称</span><span class="value">EACO</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.standard">代币标准</span><span class="value">SPL Token</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.chain">所属链</span><span class="value">Solana</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.type">类型</span><span class="value" data-i18n="token.typetext">RWA流通媒介</span></div>
+    </div>
+    <div class="token-card">
+      <h3 data-i18n="token.contract">合约信息</h3>
+      <div class="token-row"><span class="label" data-i18n="token.ca">合约地址</span><span class="value" style="font-size:0.72rem; word-break:break-all;">DqfoyZH96RnvZusSp3Cdncjpyp3C74ZmJzGhjmHnDHRH</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.decimals">小数位</span><span class="value">9</span></div>
+      <div class="token-row"><span class="label">DEX</span><span class="value">OrbMarkets</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.view">查看链接</span><span class="value" style="color:var(--accent);">orbmarkets.io</span></div>
+    </div>
+    <div class="token-card">
+      <h3 data-i18n="token.economy">经济模型</h3>
+      <div class="token-row"><span class="label" data-i18n="token.allocation">收益分配</span><span class="value">50% 再投资</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.withdraw">提现比例</span><span class="value">50% 提现</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.settle">结算周期</span><span class="value" data-i18n="token.settledate">每周一 02:00 北京时间</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.wallet">提现钱包</span><span class="value" style="font-size:0.7rem; word-break:break-all;">3uVyRjzLnJ6MumYaQ7oMt5jPVPBGKFUeGgqkzwh5Uw6N</span></div>
+    </div>
+    <div class="token-card">
+      <h3 data-i18n="token.rwa">RWA场景</h3>
+      <div class="token-row"><span class="label" data-i18n="token.asset">底层资产</span><span class="value" data-i18n="token.assettype">商业大楼+酒店公寓</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.sto">STO架构</span><span class="value" data-i18n="token.stomode">香港SPV+持牌机构</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.agents">Agent席位</span><span class="value">8/8 已满</span></div>
+      <div class="token-row"><span class="label" data-i18n="token.match">参赛Match</span><span class="value">match_1777000323458</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── Roadmap ── -->
+<section class="section" id="roadmap">
+  <div class="section-tag" data-i18n="roadmap.tag">ACTION ROADMAP</div>
+  <h2 data-i18n="roadmap.title">下一步可落地行动计划</h2>
+  <p data-i18n="roadmap.subtitle">从口岸轻量试点到完整酒店RWA发行，分阶段推进。每周更新最新方案。</p>
+
+  <div class="roadmap">
+    <div class="roadmap-item phase">
+      <h4 data-i18n="road.phase1">阶段一：口岸城市轻量试点（本月）</h4>
+      <ul>
+        <li data-i18n="road.r1_1">派人实地调研凭祥（越南）和瑞丽（缅甸）口岸的边贸政策，对接当地商务局</li>
+        <li data-i18n="road.r1_2">设立EACO体验柜台，发行宴席代金券NFT</li>
+        <li data-i18n="road.r1_3">完成首个跨境RWA试点的数据验证</li>
+      </ul>
+    </div>
+    <div class="roadmap-item phase">
+      <h4 data-i18n="road.phase2">阶段二：香港持牌机构咨询（下月）</h4>
+      <ul>
+        <li data-i18n="road.r2_1">在香港咨询持牌机构（胜利证券等），了解酒店RWA代币化合规要求</li>
+        <li data-i18n="road.r2_2">考察越南岘港或马来西亚吉隆坡1-2处经济型酒店公寓</li>
+        <li data-i18n="road.r2_3">测算收购/改造成本和预期现金流</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <h4 data-i18n="road.phase3">阶段三：跨境RWA发行（3个月内）</h4>
+      <ul>
+        <li data-i18n="road.r3_1">选择方法二（碎片化入住权）或方法四（跨境边贸券）作为首个试点</li>
+        <li data-i18n="road.r3_2">通过香港SPV+持牌机构完成首个完整酒店RWA项目发行</li>
+        <li data-i18n="road.r3_3">面向全球EACO持有者开放认购</li>
+      </ul>
+    </div>
+    <div class="roadmap-item">
+      <h4 data-i18n="road.phase4">阶段四：全球生态扩展（6-12个月）</h4>
+      <ul>
+        <li data-i18n="road.r4_1">从越南/老挝拓展至哈萨克斯坦霍尔果斯、俄罗斯满洲里</li>
+        <li data-i18n="road.r4_2">完成跨境REITs池发行（越南3家+马来西亚2家+泰国2家）</li>
+        <li data-i18n="road.r4_3">EACO持有者投票决定下一栋RWA大楼选址</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ── CTA ── -->
+<div class="cta-section">
+  <h2 data-i18n="cta.title">全球网友持有的不是空气</h2>
+  <p data-i18n="cta.subtitle">而是一间间可以入住、可以分红、可以投票的真实房间。从香港出发，到东南亚十家店，再到全球百城网络。</p>
+  <div class="ca-display" data-i18n="cta.ca">CA: DqfoyZH96RnvZusSp3Cdncjpyp3C74ZmJzGhjmHnDHRH</div>
+  <div class="hero-cta" style="justify-content:center;">
+    <a href="#hotel" class="btn-primary" data-i18n="cta.cta1">开始探索10种方法</a>
+    <a href="https://orbmarkets.io/token/DqfoyZH96RnvZusSp3Cdncjpyp3C74ZmJzGhjmHnDHRH" target="_blank" class="btn-outline" data-i18n="cta.cta2">查看代币详情 →</a>
+  </div>
+</div>
+
+<!-- ── Footer ── -->
+<footer>
+  <div class="disclaimer" data-i18n="footer.disclaimer">
+    ⚠️ 本平台为概念验证 (PoC) 演示页面，不构成投资建议。代币合约公开可查，请自行核实链上数据。所有RWA操作需通过香港持牌机构完成，遵守当地法规。
+  </div>
+  <p>EACO RWA · Global Ports &amp; Hotel Asset Tokenization · 2026</p>
+</footer>
+
+<!-- ── Scroll to top ── -->
+<button id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// ── i18n Translations ──
+const i18n = {
+  zh: {
+    'hero.badge': 'RWA · 跨境结算 · 全球流通',
+    'hero.title': 'EACO 地球口岸 RWA<br>全球资产数字化流通生态',
+    'hero.subtitle': '以香港持牌机构为合规核心，将商业大楼与经济型酒店公寓的收益权代币化，通过10大邻国陆路口岸辐射全球，让EACO成为跨境商旅与资产投资的结算媒介。',
+    'hero.cta1': '探索酒店RWA方法',
+    'hero.cta2': '查看全球口岸布局',
+    'stat.countries': '覆盖国家',
+    'stat.ports': '核心口岸',
+    'stat.methods': 'RWA方法',
+    'stat.langs': '支持语种',
+    'flow.step1': '香港SPV',
+    'flow.desc1': '收益权装入SPV',
+    'flow.step2': '代币化发行',
+    'flow.desc2': '持牌机构铸造RWA',
+    'flow.step3': 'EACO认购',
+    'flow.desc3': '全球持有者用EACO',
+    'flow.step4': '收益分红',
+    'flow.desc4': '租金+入住+治理权',
+    'ports.tag': 'GLOBAL PORTS STRATEGY',
+    'ports.title': '10大邻国 × 对华口岸 RWA布局',
+    'ports.subtitle': '基于2025-2026最新Web3监管格局，从14个陆地邻国中精选10个最具实操价值的对华口岸，通过陆路桥头堡辐射全球EACO生态。',
+    'hotel.tag': 'HOTEL RWA ECOSYSTEM',
+    'hotel.title': '经济型酒店公寓 × EACO 海外RWA发展方法',
+    'hotel.subtitle': '经济型酒店公寓具有标准化程度高、运营成本低、现金流稳定三大核心优势，是EACO RWA的最佳切入点。从资产端、流通端、收益端、合规端四个维度，系统设计10种结合路径。',
+    'token.tag': 'TOKEN INFORMATION',
+    'token.title': 'EACO 代币核心参数',
+    'token.basic': '基本信息',
+    'token.name': '代币名称',
+    'token.standard': '代币标准',
+    'token.chain': '所属链',
+    'token.type': '类型',
+    'token.typetext': 'RWA流通媒介',
+    'token.contract': '合约信息',
+    'token.ca': '合约地址',
+    'token.decimals': '小数位',
+    'token.view': '查看链接',
+    'token.economy': '经济模型',
+    'token.allocation': '收益分配',
+    'token.withdraw': '提现比例',
+    'token.settle': '结算周期',
+    'token.settledate': '每周一 02:00 北京时间',
+    'token.wallet': '提现钱包',
+    'token.rwa': 'RWA场景',
+    'token.asset': '底层资产',
+    'token.assettype': '商业大楼+酒店公寓',
+    'token.sto': 'STO架构',
+    'token.stomode': '香港SPV+持牌机构',
+    'token.agents': 'Agent席位',
+    'token.match': '参赛Match',
+    'roadmap.tag': 'ACTION ROADMAP',
+    'roadmap.title': '下一步可落地行动计划',
+    'roadmap.subtitle': '从口岸轻量试点到完整酒店RWA发行，分阶段推进。每周更新最新方案。',
+    'road.phase1': '阶段一：口岸城市轻量试点（本月）',
+    'road.r1_1': '派人实地调研凭祥（越南）和瑞丽（缅甸）口岸的边贸政策，对接当地商务局',
+    'road.r1_2': '设立EACO体验柜台，发行宴席代金券NFT',
+    'road.r1_3': '完成首个跨境RWA试点的数据验证',
+    'road.phase2': '阶段二：香港持牌机构咨询（下月）',
+    'road.r2_1': '在香港咨询持牌机构（胜利证券等），了解酒店RWA代币化合规要求',
+    'road.r2_2': '考察越南岘港或马来西亚吉隆坡1-2处经济型酒店公寓',
+    'road.r2_3': '测算收购/改造成本和预期现金流',
+    'road.phase3': '阶段三：跨境RWA发行（3个月内）',
+    'road.r3_1': '选择方法二（碎片化入住权）或方法四（跨境边贸券）作为首个试点',
+    'road.r3_2': '通过香港SPV+持牌机构完成首个完整酒店RWA项目发行',
+    'road.r3_3': '面向全球EACO持有者开放认购',
+    'road.phase4': '阶段四：全球生态扩展（6-12个月）',
+    'road.r4_1': '从越南/老挝拓展至哈萨克斯坦霍尔果斯、俄罗斯满洲里',
+    'road.r4_2': '完成跨境REITs池发行（越南3家+马来西亚2家+泰国2家）',
+    'road.r4_3': 'EACO持有者投票决定下一栋RWA大楼选址',
+    'cta.title': '全球网友持有的不是空气',
+    'cta.subtitle': '而是一间间可以入住、可以分红、可以投票的真实房间。从香港出发，到东南亚十家店，再到全球百城网络。',
+    'cta.ca': 'CA: DqfoyZH96RnvZusSp3Cdncjpyp3C74ZmJzGhjmHnDHRH',
+    'cta.cta1': '开始探索10种方法',
+    'cta.cta2': '查看代币详情 →',
+    'footer.disclaimer': '⚠️ 本平台为概念验证 (PoC) 演示页面，不构成投资建议。代币合约公开可查，请自行核实链上数据。所有RWA操作需通过香港持牌机构完成，遵守当地法规。',
+    'nav.ports': '全球口岸',
+    'nav.hotel': '酒店RWA',
+    'nav.token': '代币信息',
+    'nav.roadmap': '路线图',
+    'method.tab': '方法',
+  },
+  en: {
+    'hero.badge': 'RWA · Cross-Border Settlement · Global Circulation',
+    'hero.title': 'EACO Earth Port RWA<br>Global Asset Digital Circulation Ecosystem',
+    'hero.subtitle': 'Using Hong Kong licensed institutions as the compliance core, tokenizing commercial buildings and hotel apartment income rights, radiating globally through 10 neighboring land ports, making EACO the settlement medium for cross-border business travel and asset investment.',
+    'hero.cta1': 'Explore Hotel RWA Methods',
+    'hero.cta2': 'View Global Port Layout',
+    'stat.countries': 'Countries Covered',
+    'stat.ports': 'Core Ports',
+    'stat.methods': 'RWA Methods',
+    'stat.langs': 'Languages Supported',
+    'flow.step1': 'Hong Kong SPV',
+    'flow.desc1': 'Income Rights Pooled into SPV',
+    'flow.step2': 'Tokenization Issuance',
+    'flow.desc2': 'Licensed Institution Minting RWA',
+    'flow.step3': 'EACO Subscription',
+    'flow.desc3': 'Global Holders Subscribe with EACO',
+    'flow.step4': 'Revenue Distribution',
+    'flow.desc4': 'Rent + Stay Discounts + Governance',
+    'ports.tag': 'GLOBAL PORTS STRATEGY',
+    'ports.title': '10 Neighboring Countries × China Ports RWA Layout',
+    'ports.subtitle': 'Based on 2025-2026 Web3 regulatory landscape, selecting the 10 most actionable China-facing ports from 14 land neighbors to serve as land bridgeheads for global EACO ecosystem.',
+    'hotel.tag': 'HOTEL RWA ECOSYSTEM',
+    'hotel.title': 'Budget Hotel Apartments × EACO Overseas RWA Development',
+    'hotel.subtitle': 'Budget hotel apartments offer high standardization, low operating costs, and stable cash flow — the best entry point for EACO RWA. Systematically designing 10 combination paths from asset, circulation, revenue, and compliance dimensions.',
+    'token.tag': 'TOKEN INFORMATION',
+    'token.title': 'EACO Token Core Parameters',
+    'token.basic': 'Basic Information',
+    'token.name': 'Token Name',
+    'token.standard': 'Token Standard',
+    'token.chain': 'Blockchain',
+    'token.type': 'Type',
+    'token.typetext': 'RWA Circulation Medium',
+    'token.contract': 'Contract Information',
+    'token.ca': 'Contract Address',
+    'token.decimals': 'Decimals',
+    'token.view': 'View Link',
+    'token.economy': 'Economics Model',
+    'token.allocation': 'Revenue Allocation',
+    'token.withdraw': 'Withdrawal Ratio',
+    'token.settle': 'Settlement Cycle',
+    'token.settledate': 'Weekly Mon 02:00 Beijing Time',
+    'token.wallet': 'Withdrawal Wallet',
+    'token.rwa': 'RWA Scenario',
+    'token.asset': 'Underlying Asset',
+    'token.assettype': 'Commercial Building + Hotel Apartment',
+    'token.sto': 'STO Architecture',
+    'token.stomode': 'HK SPV + Licensed Institution',
+    'token.agents': 'Agent Seats',
+    'token.match': 'Match ID',
+    'roadmap.tag': 'ACTION ROADMAP',
+    'roadmap.title': 'Next Actionable Implementation Plan',
+    'roadmap.subtitle': 'From port light trials to complete hotel RWA issuance, phased rollout. Weekly updates with latest plans.',
+    'road.phase1': 'Phase 1: Port City Light Trial (This Month)',
+    'road.r1_1': 'Field research on Pingxiang (Vietnam) and Ruili (Myanmar) port trade policies, connect with local commerce bureaus',
+    'road.r1_2': 'Set up EACO experience counters, issue banquet voucher NFTs',
+    'road.r1_3': 'Complete data validation for first cross-border RWA pilot',
+    'road.phase2': 'Phase 2: HK Licensed Institution Consultation (Next Month)',
+    'road.r2_1': 'Consult Hong Kong licensed institutions (Victory Securities etc.) on hotel RWA tokenization compliance',
+    'road.r2_2': 'Survey 1-2 budget hotel apartments in Da Nang Vietnam or KL Malaysia',
+    'road.r2_3': 'Calculate acquisition/renovation costs and expected cash flow',
+    'road.phase3': 'Phase 3: Cross-Border RWA Issuance (Within 3 Months)',
+    'road.r3_1': 'Select Method 2 (Fragmented Stay Rights) or Method 4 (Cross-Border Trade Coupons) as first pilot',
+    'road.r3_2': 'Complete first full hotel RWA project issuance through HK SPV + licensed institution',
+    'road.r3_3': 'Open subscription to global EACO holders',
+    'road.phase4': 'Phase 4: Global Ecosystem Expansion (6-12 Months)',
+    'road.r4_1': 'Expand from Vietnam/Laos to Khorgos Kazakhstan, Manzhouli Russia',
+    'road.r4_2': 'Complete cross-border REITs pool issuance (3 Vietnam + 2 Malaysia + 2 Thailand)',
+    'road.r4_3': 'EACO holders vote on next RWA building location',
+    'cta.title': 'Global Netizens Hold Not Air',
+    'cta.subtitle': 'But real rooms that can be checked into, divided, and voted on. From Hong Kong, to 10 shops in Southeast Asia, to 100 cities worldwide.',
+    'cta.ca': 'CA: DqfoyZH96RnvZusSp3Cdncjpyp3C74ZmJzGhjmHnDHRH',
+    'cta.cta1': 'Start Exploring 10 Methods',
+    'cta.cta2': 'View Token Details →',
+    'footer.disclaimer': '⚠️ This platform is a PoC demonstration page, not investment advice. Token contract is publicly verifiable, please verify on-chain data independently. All RWA operations must be completed through Hong Kong licensed institutions in compliance with local regulations.',
+    'nav.ports': 'Global Ports',
+    'nav.hotel': 'Hotel RWA',
+    'nav.token': 'Token Info',
+    'nav.roadmap': 'Roadmap',
+    'method.tab': 'Method',
+  }
+};
+
+// ── Port Data ──
+const ports = [
+  {
+    flag: '🇻🇳', country: '越南 Vietnam', portName: '凭祥 · 东兴 · 河口',
+    city: '谅山芒街 · 老街',
+    risk: 'low', riskLabel: '低风险',
+    desc: '2025年已出台数字资产法规，2026年1月正式生效。中越边贸商可用EACO结算货款，大楼宴会厅向越南游客开放EACO支付。',
+    scenes: ['EACO跨境兑换点', '边贸货款结算', '宴会代金券NFT', '越南语界面']
+  },
+  {
+    flag: '🇲🇲', country: '缅甸 Myanmar', portName: '瑞丽 · 畹町',
+    city: '木姐 · 九谷',
+    risk: 'low', riskLabel: '低风险',
+    desc: '瑞丽是中缅最大陆路口岸，边贸活跃。可试点EACO边贸微支付，为缅甸商人提供大楼商品的代币化采购凭证。',
+    scenes: ['边贸微支付', '采购凭证NFT', '翡翠商人长租', '缅甸语界面']
+  },
+  {
+    flag: '🇱🇦', country: '老挝 Laos', portName: '磨憨',
+    city: '磨丁',
+    risk: 'low', riskLabel: '低风险',
+    desc: '中老铁路开通后，磨憨-磨丁成为关键节点。可将大楼宴会套餐代币化，老挝游客用EACO预订后凭链上凭证核销。',
+    scenes: ['套餐代币化', '铁路游客流', '链上核销', '老挝语界面']
+  },
+  {
+    flag: '🇰🇿', country: '哈萨克斯坦 Kazakhstan', portName: '霍尔果斯 · 阿拉山口',
+    city: '阿拉木图',
+    risk: 'low', riskLabel: '低风险',
+    desc: '中亚最大内陆国，霍尔果斯是中哈合作中心（跨境自贸区）。可设立EACO中亚运营站，面向哈国商人发行大楼建材RWA份额。',
+    scenes: ['中亚运营站', '建材RWA份额', '自贸区政策', '哈萨克语界面']
+  },
+  {
+    flag: '🇷🇺', country: '俄罗斯 Russia', portName: '满洲里 · 绥芬河 · 黑河',
+    city: '后贝加尔斯克 · 海参崴 · 布拉戈维申斯克',
+    risk: 'mid', riskLabel: '中风险',
+    desc: '中俄贸易额巨大但SWIFT受限。EACO可作为跨境B2B结算代币，俄方企业用EACO购买大楼宴会服务，全程链上透明。',
+    scenes: ['B2B对敲结算', '俄企采购', '链上透明', '俄语界面']
+  },
+  {
+    flag: '🇲🇳', country: '蒙古 Mongolia', portName: '二连浩特 · 策克',
+    city: '扎门乌德',
+    risk: 'low', riskLabel: '低风险',
+    desc: '蒙古对中国日用品依赖度高，二连浩特是中蒙最大铁路口岸。可在口岸设立EACO兑换亭，蒙古游客用EACO在大楼消费享折扣。',
+    scenes: ['EACO兑换亭', '游客消费折扣', '日用品贸易', '蒙古语界面']
+  },
+  {
+    flag: '🇰🇵', country: '朝鲜 North Korea', portName: '丹东',
+    city: '新义州',
+    risk: 'high', riskLabel: '极高风险',
+    desc: '政治风险极高，建议仅保留丹东口岸观察窗口，不主动开展业务。理论上面向小规模人道主义物资代币化募资。',
+    scenes: ['观察窗口', '人道物资', '极高度谨慎', '风险管控']
+  },
+  {
+    flag: '🇳🇵', country: '尼泊尔 Nepal', portName: '吉隆 · 樟木',
+    city: '加德满都',
+    risk: 'mid', riskLabel: '中风险',
+    desc: '一带一路南亚节点，旅游业为支柱。可将大楼文旅套餐（火锅+夜游）代币化，面向尼泊尔高端游客发行。',
+    scenes: ['文旅套餐代币', '高端游客', '一带一路节点', '尼泊尔语界面']
+  },
+  {
+    flag: '🇵🇰', country: '巴基斯坦 Pakistan', portName: '红其拉甫',
+    city: '吉尔吉特',
+    risk: 'mid', riskLabel: '中风险',
+    desc: '中巴友谊公路终点，战略意义重大。可与当地商会合作，将大楼宴会厅冠名权或广告位代币化，巴基斯坦企业竞价购买。',
+    scenes: ['冠名权代币', '广告位竞价', '商会合作', '乌尔都语界面']
+  },
+  {
+    flag: '🇰🇬', country: '吉尔吉斯斯坦 Kyrgyzstan', portName: '伊尔克什坦 · 吐尔尕特',
+    city: '奥什 · 纳伦',
+    risk: 'low', riskLabel: '低风险',
+    desc: '中亚重要转口贸易国。可设立EACO中亚节点，将大楼仓储、冷链服务代币化，吸引中亚贸易商。',
+    scenes: ['中亚节点', '仓储RWA', '冷链服务', '吉尔吉斯语界面']
+  }
+];
+
+// ── Hotel Methods Data ──
+const methods = [
+  {
+    icon: '🏛️', color: 'rgba(245,158,11,0.12)', iconColor: 'var(--primary)',
+    title: '酒店收益权代币化（STO模式）',
+    titleEn: 'Hotel Revenue Tokenization (STO)',
+    subtitle: '核心基石 · 实施难度中 · 3-6个月启动',
+    subtitleEn: 'Core Foundation · Medium Difficulty · 3-6 Months',
+    steps: [
+      { title: 'SPV架构搭建', desc: '将海外经济型酒店公寓未来3-5年净运营收益权装入SPV', en: 'Set up SPV structure and pool hotel revenue rights for 3-5 years' },
+      { title: '香港持牌发行', desc: '通过香港持牌机构（1/4/9号牌）将收益权铸造成证券型代币', en: 'Mint security tokens through Hong Kong licensed institutions (Type 1/4/9)' },
+      { title: 'EACO认购分红', desc: '全球投资者用EACO购买，酒店收益按季度以EACO形式分红', en: 'Global investors subscribe with EACO, quarterly dividends in EACO' }
+    ],
+    highlight: 'EACO价值锚定',
+    points: ['认购必须用EACO → 创造真实买盘', '分红以EACO发放 → 持有-分红正循环', '参考：香港W酒店单客房拆分10万份，100美元入场']
+  },
+  {
+    icon: '🏨', color: 'rgba(6,182,212,0.12)', iconColor: 'var(--accent)',
+    title: '碎片化入住权NFT（使用即销毁）',
+    titleEn: 'Fragmented Stay Rights NFT (Burn on Use)',
+    subtitle: '轻量试点 · 实施难度低 · 1-2个月启动',
+    subtitleEn: 'Light Trial · Low Difficulty · 1-2 Months',
+    steps: [
+      { title: '间夜NFT铸造', desc: '将酒店间夜使用权铸造成NFT，每NFT=1间夜入住权', en: 'Mint stay-right NFTs, each representing 1 night stay' },
+      { title: 'EACO定价销售', desc: '以EACO定价（如200 EACO/晚），用户购买后预约入住', en: 'Price in EACO (e.g. 200 EACO/night), users book after purchase' },
+      { title: '自动销毁机制', desc: '使用后NFT自动销毁，未使用可在二级市场转让', en: 'Auto-burn on use, transferable on secondary market if unused' }
+    ],
+    highlight: 'EACO支付场景',
+    points: ['必须用EACO购买入住权 → 创造支付场景', '持1000 EACO享8折优惠', '解决淡季空置，将闲置库存转化为EACO消耗场景']
+  },
+  {
+    icon: '💱', color: 'rgba(16,185,129,0.12)', iconColor: 'var(--green)',
+    title: '动态收益质押池（DeFi × 酒店REITs）',
+    titleEn: 'Dynamic Yield Staking Pool (DeFi × Hotel REITs)',
+    subtitle: 'DeFi融合 · 实施难度中 · 3个月启动',
+    subtitleEn: 'DeFi Integration · Medium Difficulty · 3 Months',
+    steps: [
+      { title: '建LP流动性池', desc: '在Orbmarkets/Raydium建立EACO-稳定币流动性池', en: 'Create EACO-stablecoin LP pool on Orbmarkets or Raydium' },
+      { title: '收购酒店资产', desc: '池子50%资金用于收购或改造经济型酒店公寓', en: '50% of pool funds used to acquire or renovate budget hotels' },
+      { title: '双重收益分配', desc: 'LP获得交易手续费分红 + 酒店净收益分成', en: 'LPs receive trading fees + hotel net revenue share' }
+    ],
+    highlight: 'EACO质押权重',
+    points: ['质押EACO的用户获得1.2倍收益分配权重', '东南亚酒店RWA历史年化回报率达138%', 'DeFi原住民最爱，流动性与收益双重捕获']
+  },
+  {
+    icon: '🌏', color: 'rgba(139,92,246,0.12)', iconColor: '#a78bfa',
+    title: '跨境边贸酒店兑换券（陆路口岸）',
+    titleEn: 'Cross-Border Trade Hotel Vouchers (Land Ports)',
+    subtitle: '最快落地 · 实施难度低 · 1-3个月启动',
+    subtitleEn: 'Fastest Implementation · Low Difficulty · 1-3 Months',
+    steps: [
+      { title: '口岸酒店合作', desc: '在10个陆路口岸邻国侧合作或自建经济型酒店公寓', en: 'Partner or build hotels at 10 land port neighboring cities' },
+      { title: 'EACO锚定兑换券', desc: '中国商人用人民币购EACO，到邻国酒店用EACO支付房费', en: 'Chinese merchants buy EACO with CNY, pay hotel in EACO abroad' },
+      { title: '套利激励机制', desc: 'EACO升值时住宿成本实际下降，激励提前囤积EACO', en: 'EACO appreciation lowers real accommodation cost, incentivizing early purchase' }
+    ],
+    highlight: '口岸落地场景',
+    points: ['东兴-芒街：中越边贸商日均1万人次，经济型酒店需求旺盛', '瑞丽-木姐：翡翠商人常年驻留，长租公寓需求稳定', '让EACO成为跨境商旅的结算媒介']
+  },
+  {
+    icon: '📦', color: 'rgba(236,72,153,0.12)', iconColor: '#ec4899',
+    title: '酒店供应链代币化',
+    titleEn: 'Hotel Supply Chain Tokenization',
+    subtitle: '长期生态 · 实施难度中高 · 6个月+启动',
+    subtitleEn: 'Long-term Ecosystem · Medium-High · 6+ Months',
+    steps: [
+      { title: '采购需求上链', desc: '将酒店布草、洗漱用品、食品饮料采购需求上链', en: 'On-chain hotel procurement needs: linens, toiletries, F&B' },
+      { title: 'EACO报价结算', desc: '供应商以EACO报价并结算，智能合约自动执行采购订单', en: 'Suppliers quote and settle in EACO, smart contracts auto-execute' },
+      { title: '供应链融资', desc: '持有EACO的网友参与采购订单垫付，获得采购利润分成', en: 'EACO holders fund procurement orders and share purchase profits' }
+    ],
+    highlight: 'EACO结算加速',
+    points: ['供应商持有EACO享受T+0结算（vs传统T+30）', '投资100 EACO给"5月布草采购订单"可获采购利润分成', '将供应链每一环都绑定EACO生态']
+  },
+  {
+    icon: '🏛️', color: 'rgba(245,158,11,0.12)', iconColor: 'var(--primary)',
+    title: 'DAO治理 + 酒店选址投票',
+    titleEn: 'DAO Governance + Hotel Location Voting',
+    subtitle: '社区自治 · 实施难度中高 · 6个月+启动',
+    subtitleEn: 'Community Governance · Medium-High · 6+ Months',
+    steps: [
+      { title: 'EACO酒店DAO', desc: '持有5000枚以上EACO可成为DAO成员，参与治理', en: 'Hold 5,000+ EACO to become DAO member and participate in governance' },
+      { title: '投票决定选址', desc: '投票决定下一栋酒店公寓的选址城市、品牌定位、装修风格', en: 'Vote on next hotel location, brand positioning, and decoration style' },
+      { title: '锁仓权重机制', desc: '投票权与持有量正相关，长期持有者权重更高', en: 'Voting power proportional to holdings, long-term holders get higher weight' }
+    ],
+    highlight: 'EACO治理价值',
+    points: ['参与投票需锁定EACO 3-12个月，减少市场流通盘', '投票通过的方案，参与者获额外EACO空投奖励', '参考：迪拜Prypco Mint房地产代币化1分钟58秒售罄']
+  },
+  {
+    icon: '🎫', color: 'rgba(6,182,212,0.12)', iconColor: 'var(--accent)',
+    title: '酒店会员体系上链',
+    titleEn: 'Hotel Loyalty Program On-Chain',
+    subtitle: '用户粘性 · 实施难度中 · 3-6个月启动',
+    subtitleEn: 'User Retention · Medium · 3-6 Months',
+    steps: [
+      { title: '积分系统迁移', desc: '将酒店会员积分系统迁移到区块链上', en: 'Migrate hotel loyalty points system to blockchain' },
+      { title: 'EACO作为通用积分', desc: '全球合作酒店中用EACO支付可累积积分，积分跨酒店兑换', en: 'Use EACO for payments globally, earn cross-hotel redeemable points' },
+      { title: '永不过期积分', desc: '积分永不过期、可转让、可交易', en: 'Points never expire, transferable, and tradable' }
+    ],
+    highlight: 'EACO积分闭环',
+    points: ['支付100 EACO返5 EACO积分', '积分可反向兑换EACO，形成闭环', '对标：传统酒店积分每年作废率高达30%']
+  },
+  {
+    icon: '🌿', color: 'rgba(16,185,129,0.12)', iconColor: 'var(--green)',
+    title: '酒店碳中和代币（ESG叙事）',
+    titleEn: 'Hotel Carbon Neutral Tokens (ESG Narrative)',
+    subtitle: 'ESG叙事 · 实施难度中高 · 6个月+启动',
+    subtitleEn: 'ESG Narrative · Medium-High · 6+ Months',
+    steps: [
+      { title: '碳减排测算', desc: '为酒店安装太阳能、节能设备，测算碳减排量', en: 'Install solar panels and energy-saving equipment, measure carbon reduction' },
+      { title: '碳积分NFT铸造', desc: '将碳减排量铸造成碳积分NFT，用EACO定价交易', en: 'Mint carbon credit NFTs, priced and traded in EACO' },
+      { title: 'ESG收益共享', desc: '企业购买碳积分NFT抵消碳足迹，收益归酒店和EACO持有者', en: 'Enterprises buy carbon credits to offset footprint, proceeds shared' }
+    ],
+    highlight: 'EACO碳积分',
+    points: ['碳积分必须用EACO购买', '持有EACO可获得碳积分销售的分红', '2026年ESG已成房地产代币化核心趋势']
+  },
+  {
+    icon: '🏢', color: 'rgba(139,92,246,0.12)', iconColor: '#a78bfa',
+    title: '酒店资产跨境REITs代币化（机构版）',
+    titleEn: 'Cross-Border Hotel REITs Tokenization (Institutional)',
+    subtitle: '机构级 · 实施难度高 · 6-12个月启动',
+    subtitleEn: 'Institutional · High Difficulty · 6-12 Months',
+    steps: [
+      { title: '打包REITs池', desc: '将多个酒店公寓打包成跨境REITs池（越南3家+马来西亚2家+泰国2家）', en: 'Bundle multiple hotels into cross-border REITs pool (3 VN + 2 MY + 2 TH)' },
+      { title: '合规框架发行', desc: '通过香港或新加坡合规框架发行REITs代币', en: 'Issue REITs tokens through HK or Singapore compliant framework' },
+      { title: 'EACO优先认购', desc: '持有EACO用户优先以折扣价认购REITs代币', en: 'EACO holders get priority subscription at discount price' }
+    ],
+    highlight: 'EACO优先权',
+    points: ['申购REITs代币需消耗少量EACO作为Gas费', '分红可选择以EACO或稳定币发放', '住建部已明确"探索将酒店纳入REITs试点"']
+  },
+  {
+    icon: '📊', color: 'rgba(236,72,153,0.12)', iconColor: '#ec4899',
+    title: '酒店数据资产化（入住数据NFT）',
+    titleEn: 'Hotel Data Assetization (Occupancy Data NFT)',
+    subtitle: '数据变现 · 实施难度中高 · 6个月+启动',
+    subtitleEn: 'Data Monetization · Medium-High · 6+ Months',
+    steps: [
+      { title: '匿名化数据集', desc: '将酒店入住率、平均房价、客源结构打包成数据集', en: 'Bundle anonymized occupancy rate, ADR, and guest mix data' },
+      { title: '数据NFT铸造', desc: '将数据集铸造成数据NFT，用EACO定价出售', en: 'Mint data NFTs, priced and sold in EACO to research firms' },
+      { title: '收益三方分配', desc: '酒店40%+数据贡献者30%+EACO持有者30%', en: 'Revenue split: Hotel 40% + Contributors 30% + EACO holders 30%' }
+    ],
+    highlight: 'EACO数据分红',
+    points: ['购买数据NFT必须用EACO', '持有EACO自动获得数据销售分红', '传统酒店数据被闲置，RWA可将"数据废气"变现']
+  }
+];
+
+// ── Render Ports ──
+function renderPorts(lang) {
+  const grid = document.getElementById('portGrid');
+  grid.innerHTML = ports.map(p => `
+    <div class="port-card">
+      <span class="country-flag">${p.flag}</span>
+      <span class="risk-badge risk-${p.risk}">${p.riskLabel}</span>
+      <h3>${p.country}</h3>
+      <div class="port-name">🇨🇳 ${p.portName} ↔ ${p.city}</div>
+      <p>${p.desc}</p>
+      <div class="scenes">
+        ${p.scenes.map(s => `<span class="scene-tag">${s}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+}
+
+// ── Render Methods ──
+function renderMethods(lang) {
+  const tabs = document.getElementById('methodTabs');
+  const details = document.getElementById('methodDetails');
+
+  tabs.innerHTML = methods.map((m, i) => `
+    <button class="method-tab ${i === 0 ? 'active' : ''}" data-method="${i}">
+      ${m.icon} ${lang === 'zh' ? m.title.split('（')[0] : m.titleEn.split(' (')[0]}
+    </button>
+  `).join('');
+
+  details.innerHTML = methods.map((m, i) => `
+    <div class="method-detail ${i === 0 ? 'active' : ''}" data-detail="${i}">
+      <div class="method-header">
+        <div class="method-icon" style="background:${m.color}; color:${m.iconColor};">${m.icon}</div>
+        <div>
+          <h3>${lang === 'zh' ? m.title : m.titleEn}</h3>
+          <div class="method-subtitle">${lang === 'zh' ? m.subtitle : m.subtitleEn}</div>
+        </div>
+      </div>
+      <div class="method-steps">
+        ${m.steps.map(s => `
+          <div class="step-card">
+            <h4>${lang === 'zh' ? s.title : s.desc.split(' ')[0]}</h4>
+            <p>${lang === 'zh' ? s.desc : s.desc}</p>
+          </div>
+        `).join('')}
+      </div>
+      <div class="method-highlight">
+        <h4>${m.highlight}</h4>
+        <ul>
+          ${m.points.map(pt => `<li>${pt}</li>`).join('')}
+        </ul>
+      </div>
+    </div>
+  `).join('');
+
+  // Tab switching
+  tabs.querySelectorAll('.method-tab').forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabs.querySelectorAll('.method-tab').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const idx = btn.dataset.method;
+      details.querySelectorAll('.method-detail').forEach(d => d.classList.remove('active'));
+      details.querySelector(`[data-detail="${idx}"]`).classList.add('active');
+    });
+  });
+}
+
+// ── Apply Language ──
+function applyLang(lang) {
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (i18n[lang] && i18n[lang][key]) {
+      el.innerHTML = i18n[lang][key];
+    }
+  });
+  document.querySelectorAll('.lang-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.lang === lang);
+  });
+  renderPorts(lang);
+  renderMethods(lang);
+}
+
+// ── Init ──
+let currentLang = 'zh';
+
+// Language switching
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    currentLang = btn.dataset.lang;
+    applyLang(currentLang);
+  });
+});
+
+// Scroll to top button
+window.addEventListener('scroll', () => {
+  document.getElementById('scrollTop').classList.toggle('visible', window.scrollY > 400);
+});
+
+// Active nav highlighting
+const sections = ['ports', 'hotel', 'token', 'roadmap'];
+const navLinks = document.querySelectorAll('nav a');
+window.addEventListener('scroll', () => {
+  let current = '';
+  sections.forEach(id => {
+    const el = document.getElementById(id);
+    if (el && window.scrollY >= el.offsetTop - 80) current = id;
+  });
+  navLinks.forEach(a => {
+    a.classList.toggle('active', a.getAttribute('href') === '#' + current);
+  });
+});
+
+// Initial render
+applyLang(currentLang);
+</script>
+</body>
+</html>
